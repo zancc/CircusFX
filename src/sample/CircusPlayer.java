@@ -1,32 +1,24 @@
 package sample;
 
+import javafx.scene.paint.Color;
+
 import java.util.ArrayList;
 
 public class CircusPlayer {
     private String name;
-    private char token;
+    private Color color;
     private int position;
-    private ArrayList<Character> fieldPrint = new ArrayList<Character>(); //stores what to print for this player in each field (space or his symbol)
 
 
-    public CircusPlayer(String name, char token) {
+    public CircusPlayer(String name, Color color) {
         this.name = name;
-        this.token = token;
+        this.color = color;
         this.position = 1;
 
-        fieldPrint.add(' ');
-        fieldPrint.add(this.getToken());
-        for (int i = 2; i <= 126; i++) {
-            fieldPrint.add(' ');
-        }
     }
 
     public String getName() {
         return name;
-    }
-
-    public char getToken() {
-        return token;
     }
 
     public int getPosition() {
@@ -41,23 +33,20 @@ public class CircusPlayer {
         this.position += position;
     }
 
-    public ArrayList<Character> getFieldPrint() {
-        return fieldPrint;
-    }
-
-    public void setFieldPrint(int index, Character newValue) {
-        this.fieldPrint.set(index, newValue);
+    public Color getColor() {
+        return color;
     }
 
     @Override
     public String toString() {
-        return "Player{" +
+        return "CircusPlayer{" +
                 "name='" + name + '\'' +
-                ", token=" + token +
+                ", color=" + color +
+                ", position=" + position +
                 '}';
     }
 
-//    public String boardAction(int fieldNumber) { // needs to be added all other action fields
+    //    public String boardAction(int fieldNumber) { // needs to be added all other action fields
 //        String action;
 //
 //        switch (fieldNumber) {

@@ -2,6 +2,6 @@
 #centerPane {
     -fx-background-image: url("circus.jpg");
     -fx-background-repeat: stretch;
-    -fx-background-size: 610 610;
+    -fx-background-size: 650 650;
     -fx-background-position: bottom center;
 }

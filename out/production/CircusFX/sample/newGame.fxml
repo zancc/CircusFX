@@ -1,0 +1,28 @@
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<DialogPane fx:controller="sample.newGameController"
+            xmlns:fx="http://javafx.com/fxml">
+    <headerText>
+        Choose number of players!
+    </headerText>
+    <content>
+        <GridPane vgap="10" hgap="10">
+            <Label text="Number of players:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <fx:define>
+                <ToggleGroup fx:id="numberOfPlayers"/>
+            </fx:define>
+            <VBox GridPane.rowIndex="0" GridPane.columnIndex="1" >
+                <RadioButton fx:id="one" text="1" toggleGroup="$numberOfPlayers"/>
+                <RadioButton fx:id="two" text="2" toggleGroup="$numberOfPlayers" selected="true"/>
+                <RadioButton fx:id="three" text="3" toggleGroup="$numberOfPlayers"/>
+                <RadioButton fx:id="four" text="4" toggleGroup="$numberOfPlayers"/>
+            </VBox>
+
+        </GridPane>
+    </content>
+</DialogPane>

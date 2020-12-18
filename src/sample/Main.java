@@ -20,6 +20,7 @@ public class Main extends Application {
         primaryStage.setTitle("Circus Board Game");
         primaryStage.setScene(new Scene(root, 1200, 650));
         primaryStage.show();
+        primaryStage.setResizable(false);
 
 
     }
