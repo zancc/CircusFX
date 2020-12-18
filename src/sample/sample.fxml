@@ -16,8 +16,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="mainBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1200.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="sample.Controller">
+<BorderPane fx:id="mainBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1200.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <center>
       <Pane id="centerPane" pickOnBounds="false" prefHeight="650.0" prefWidth="822.0" BorderPane.alignment="CENTER">
          <children>
@@ -49,17 +48,17 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Circle fx:id="c3" fill="YELLOW" radius="6.0" stroke="BLACK" strokeType="INSIDE" GridPane.halignment="LEFT" GridPane.rowIndex="11" GridPane.valignment="TOP">
+                  <Circle fx:id="c1" fill="YELLOW" radius="6.0" stroke="BLACK" strokeType="INSIDE" GridPane.halignment="LEFT" GridPane.rowIndex="11" GridPane.valignment="TOP">
                      <GridPane.margin>
                         <Insets left="12.0" top="12.0" />
                      </GridPane.margin>
                   </Circle>
-                  <Circle fx:id="c1" fill="RED" radius="6.0" stroke="BLACK" strokeType="INSIDE" GridPane.halignment="LEFT" GridPane.rowIndex="11" GridPane.valignment="TOP">
+                  <Circle fx:id="c2" fill="RED" radius="6.0" stroke="BLACK" strokeType="INSIDE" GridPane.halignment="LEFT" GridPane.rowIndex="11" GridPane.valignment="TOP">
                      <GridPane.margin>
                         <Insets left="35.0" top="30.0" />
                      </GridPane.margin>
                   </Circle>
-                  <Circle fx:id="c2" fill="DODGERBLUE" radius="6.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnSpan="3" GridPane.halignment="LEFT" GridPane.rowIndex="11" GridPane.valignment="TOP">
+                  <Circle fx:id="c3" fill="DODGERBLUE" radius="6.0" stroke="BLACK" strokeType="INSIDE" GridPane.columnSpan="3" GridPane.halignment="LEFT" GridPane.rowIndex="11" GridPane.valignment="TOP">
                      <GridPane.margin>
                         <Insets left="35.0" top="12.0" />
                      </GridPane.margin>
@@ -78,7 +77,7 @@
          <children>
             <ToolBar prefHeight="40.0" prefWidth="200.0">
               <items>
-                  <Button fx:id="newGame" mnemonicParsing="false"  onAction="#showNewGameDialog" prefHeight="40.0" prefWidth="80.0" text="New game" />
+                <Button fx:id="newGame" mnemonicParsing="false" onAction="#startNewGame" prefHeight="40.0" prefWidth="80.0" text="New game" />
                   <Button fx:id="exitGame" mnemonicParsing="false" onAction="#handleExit" prefHeight="40.0" prefWidth="80.0" text="Exit game" />
               </items>
             </ToolBar>
@@ -89,9 +88,9 @@
                         <Insets left="10.0" />
                      </FlowPane.margin>
                   </Circle>
-                  <Label prefHeight="52.0" prefWidth="257.0" text="   Choose the dice value for the player x:">
+                  <Label fx:id="currentPlayer" prefHeight="52.0" prefWidth="423.0" text="   Choose the dice value for the player x:">
                      <font>
-                        <Font name="Times New Roman Bold" size="14.0" />
+                        <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
                </children>
@@ -110,42 +109,42 @@
                   <RowConstraints minHeight="50.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="dice1" maxHeight="60.0" maxWidth="60.0" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                  <Button fx:id="dice1" onAction="#diceClicked" maxHeight="60.0" maxWidth="60.0" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                       <graphic>
                           <ImageView fitHeight="50.0" fitWidth="50.0">
                               <Image url="@dice1.jpg" />
                           </ImageView>
                       </graphic>
                   </Button>
-                   <Button fx:id="dice2" maxHeight="60.0" maxWidth="60.0" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                   <Button fx:id="dice2" onAction="#diceClicked" maxHeight="60.0" maxWidth="60.0" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                        <graphic>
                            <ImageView fitHeight="50.0" fitWidth="50.0">
                                <Image url="@dice2.jpg" />
                            </ImageView>
                        </graphic>
                    </Button>
-                   <Button fx:id="dice3" maxHeight="60.0" maxWidth="60.0" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                   <Button fx:id="dice3" onAction="#diceClicked" maxHeight="60.0" maxWidth="60.0" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                        <graphic>
                            <ImageView fitHeight="50.0" fitWidth="50.0">
                                <Image url="@dice3.jpg" />
                            </ImageView>
                        </graphic>
                    </Button>
-                   <Button fx:id="dice4" maxHeight="60.0" maxWidth="60.0" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                   <Button fx:id="dice4" onAction="#diceClicked" maxHeight="60.0" maxWidth="60.0" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                        <graphic>
                            <ImageView fitHeight="50.0" fitWidth="50.0">
                                <Image url="@dice4.jpg" />
                            </ImageView>
                        </graphic>
                    </Button>
-                   <Button fx:id="dice5" maxHeight="60.0" maxWidth="60.0" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                   <Button fx:id="dice5" onAction="#diceClicked" maxHeight="60.0" maxWidth="60.0" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                        <graphic>
                            <ImageView fitHeight="50.0" fitWidth="50.0">
                                <Image url="@dice5.jpg" />
                            </ImageView>
                        </graphic>
                    </Button>
-                   <Button fx:id="dice6" maxHeight="60.0" maxWidth="60.0" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                   <Button fx:id="dice6" onAction="#diceClicked" maxHeight="60.0" maxWidth="60.0" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                        <graphic>
                            <ImageView fitHeight="50.0" fitWidth="50.0">
                                <Image url="@dice6.jpg" />
@@ -154,27 +153,106 @@
                    </Button>
                </children>
             </GridPane>
-            <GridPane prefHeight="304.0" prefWidth="400.0">
+            <VBox prefHeight="123.0" prefWidth="516.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="471.0" text="Latest actions:">
+                     <font>
+                        <Font name="System Italic" size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets left="40.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="action1" prefHeight="20.0" prefWidth="517.0" text="Action1">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="action2" prefHeight="20.0" prefWidth="517.0" text="Action2">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="action3" prefHeight="20.0" prefWidth="517.0" text="Action3">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </VBox>
+            <GridPane prefHeight="127.0" prefWidth="411.0">
               <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="166.0" minWidth="10.0" prefWidth="49.00001207987467" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="352.6666628519694" minWidth="10.0" prefWidth="233.3333536783854" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="156.0" minWidth="10.0" prefWidth="74.99995930989581" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="188.3333740234375" minWidth="10.0" prefWidth="168.3333740234375" />
+                <ColumnConstraints maxWidth="191.6666259765625" minWidth="10.0" prefWidth="166.33331298828125" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="156.0" minWidth="10.0" prefWidth="103.00002034505209" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints maxHeight="98.66668701171875" minHeight="10.0" prefHeight="43.33335876464844" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="132.66664123535156" minHeight="10.0" prefHeight="108.66664123535156" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Circle fx:id="currentPlayerColor1" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                  <Label prefHeight="28.0" prefWidth="311.0" text="Players1 current position:" GridPane.columnIndex="1">
+                  <Circle fx:id="p1color" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <Label fx:id="p1text" prefHeight="28.0" prefWidth="311.0" text="Players1 current position:" GridPane.columnIndex="1">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </Label>
+                  <Circle fx:id="p2color" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                  <Circle fx:id="p3color" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                  <Circle fx:id="p4color" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                  <Label fx:id="p2text" prefHeight="28.0" prefWidth="311.0" text="Players2 current position:" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="p3text" prefHeight="28.0" prefWidth="311.0" text="Players3 current position:" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="p4text" prefHeight="28.0" prefWidth="311.0" text="Players3 current position:" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="p1pos" prefHeight="28.0" prefWidth="95.0" text="p1 pos" GridPane.columnIndex="2">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="p2pos" prefHeight="28.0" prefWidth="95.0" text="p2 pos" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="p3pos" prefHeight="28.0" prefWidth="95.0" text="p3 pos" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="p4pos" prefHeight="28.0" prefWidth="95.0" text="p4 pos" GridPane.columnIndex="2" GridPane.rowIndex="3">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
                </children>
+               <VBox.margin>
+                  <Insets left="50.0" right="150.0" />
+               </VBox.margin>
             </GridPane>
          </children>
       </VBox>

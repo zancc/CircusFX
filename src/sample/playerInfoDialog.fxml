@@ -1,7 +1,4 @@
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.control.TextField?>
@@ -10,10 +7,10 @@
             xmlns:fx="http://javafx.com/fxml">
     <content>
         <GridPane vgap="10" hgap="10">
-<!--            <Label text="Enter the name of the player:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>-->
+            <Label text="Name:" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.halignment="RIGHT"/>
             <TextField fx:id="playerNameField" text="New player" GridPane.rowIndex="0" GridPane.columnIndex="1"
                     onMouseClicked="#handleMouseClicked"/>
-            <Label text="Chose the color for this player:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <Label text="Color:" GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.halignment="RIGHT"/>
             <ColorPicker fx:id="colorPicker" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
         </GridPane>
     </content>

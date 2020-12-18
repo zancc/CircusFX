@@ -2,9 +2,11 @@ package sample;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Circle;
 
 public class playerInfoDialogController {
     @FXML
@@ -13,13 +15,23 @@ public class playerInfoDialogController {
     @FXML
     private ColorPicker colorPicker;
 
-    public void playerInfo() {
+
+
+    @FXML
+    private Circle p1color;
+
+    public void playerInfo(int i) {
         String name = playerNameField.getText().trim();
-        Color playerColor = colorPicker.getValue();
+        System.out.println(name);
+        Paint playerColor = colorPicker.getValue();
+        System.out.println(playerColor);
+        Circle currentCircle;
+
+
+
 
         Controller.circusPlayers.add(new CircusPlayer(name, playerColor));
     }
-
 
     public void handleMouseClicked() {
         playerNameField.setText("");
