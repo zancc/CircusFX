@@ -13,6 +13,7 @@ public class CircusPlayer {
     private Circle token;
 
 
+
     public void setToken(Circle token) {
         this.token = token;
     }
@@ -21,6 +22,10 @@ public class CircusPlayer {
         this.name = name;
         this.color = color;
         this.position = 1;
+    }
+
+    public Circle getToken() {
+        return token;
     }
 
     public String getName() {
@@ -52,7 +57,66 @@ public class CircusPlayer {
                 '}';
     }
 
-        public String boardAction(int fieldNumber) { // needs to be added all other action fields
+    public static int getRow(int position) {
+        switch (position) {
+            case 1, 2, 3, 4, 5, 6, 7, 8, 9, 10:
+                return 11;
+            case 11, 12, 13, 14, 15, 16, 17, 18, 19, 20:
+                return 10;
+            case 21, 22, 23, 24, 25, 26, 27, 28, 29, 30:
+                return 9;
+            case 31, 32, 33, 34, 35, 36, 37, 38, 39, 40:
+                return 8;
+            case 41, 42, 43, 44, 45, 46, 47, 48, 49, 50:
+                return 7;
+            case 51, 52, 53, 54, 55, 56, 57, 58, 59, 60:
+                return 6;
+            case 61, 62, 63, 64, 65, 66, 67, 68, 69, 70:
+                return 5;
+            case 71, 72, 73, 74, 75, 76, 77, 78, 79, 80:
+                return 4;
+            case 81, 82, 83, 84, 85, 86, 87, 88, 89, 90:
+                return 3;
+            case 91, 92, 93, 94, 95, 96, 97, 98, 99, 100:
+                return 2;
+            case 101, 102, 103, 104, 105, 106, 107, 108, 109, 110:
+                return 1;
+            case 111, 112, 113, 114, 115, 116, 117, 118, 119, 120:
+                return 0;
+            default:
+                return 11;
+        }
+    }
+
+    public static int getColumn(int position) {
+        switch (position) {
+            case 1, 20, 21, 40, 41, 60, 61, 80, 81, 100, 101, 120:
+                return 0;
+            case 2, 19, 22, 39, 42, 59, 62, 79, 82, 99, 102, 119:
+                return 1;
+            case 3, 18, 23, 38, 43, 58, 63, 78, 83, 98, 103, 118:
+                return 2;
+            case 4, 17, 24, 37, 44, 57, 64, 77, 84, 97, 104, 117:
+                return 3;
+            case 5, 16, 25, 36, 45, 56, 65, 76, 85, 96, 105, 116:
+                return 4;
+            case 6, 15, 26, 35, 46, 55, 66, 75, 86, 95, 106, 115:
+                return 5;
+            case 7, 14, 27, 34, 47, 54, 67, 74, 87, 94, 107, 114:
+                return 6;
+            case 8, 13, 28, 33, 48, 53, 68, 73, 88, 93, 108, 113:
+                return 7;
+            case 9, 12, 29, 32, 49, 52, 69, 72, 89, 92, 109, 112:
+                return 8;
+            case 10, 11, 30, 31, 50, 51, 70, 71, 90, 91, 110, 111:
+                return 9;
+            default:
+                return 0;
+        }
+    }
+
+
+    public String boardAction(int fieldNumber) { // needs to be added all other action fields
         String action;
 
         switch (fieldNumber) {
@@ -159,5 +223,6 @@ public class CircusPlayer {
         }
         return action;
     }
+
 
 }

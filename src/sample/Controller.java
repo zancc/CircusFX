@@ -8,8 +8,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Circle;
 
 import java.io.IOException;
@@ -58,7 +58,7 @@ public class Controller {
     @FXML
     private Circle currentPlayerColor;
     @FXML
-    private Label currentPlayer;
+    private Label currentPlayerLabel;
     @FXML
     private Button dice1;
     @FXML
@@ -77,16 +77,15 @@ public class Controller {
     private Label action2;
     @FXML
     private Label action3;
+    @FXML
+    private GridPane circusBoardGrid;
 
     private String a1;
     private String a2;
     private String a3;
-    private String tempAction;
-
 
     private int diceValue;
     private int playerIndex;
-
 
     public void initialize() {
 
@@ -98,10 +97,12 @@ public class Controller {
 
     @FXML
     public void startNewGame() {
+        //removes data of previous players
         while (!circusPlayers.isEmpty()) {
             circusPlayers.remove(0);
         }
-        
+
+        //"choose the number of players" dialog
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.initOwner(mainBorderPane.getScene().getWindow());
         dialog.setTitle("Number of players");
@@ -126,16 +127,18 @@ public class Controller {
             numberOfPlayer = controller.newGame();
             System.out.println(numberOfPlayer);
 
+            //player data input dialog
             for (int i = 0; i < numberOfPlayer; i++) {
                 showPlayerInfoInputDialog(i);
             }
         }
 
-        for (int i = 0; i < numberOfPlayer; i++) {
-            System.out.println(circusPlayers.get(i));
-        }
+//        for (int i = 0; i < numberOfPlayer; i++) {
+//            System.out.println(circusPlayers.get(i));
+//        }
         prepareGameField();
-
+        a1 = "New Game. Number of players - " + numberOfPlayer;
+        action1.setText(a1);
         playerIndex = 0;
 
     }
@@ -171,6 +174,7 @@ public class Controller {
         CircusPlayer currentPlayer = circusPlayers.get(playerIndex);
         a3 = a2;
         a2 = a1;
+        a1 = "";
         int diceValue = -1;
         if(e.getSource().equals(dice1)) {
             diceValue = 1;
@@ -186,22 +190,28 @@ public class Controller {
             diceValue = 6;
         }
         System.out.println(diceValue);
-/*
         currentPlayer.addToPosition(diceValue);
-        a1 = currentPlayer.boardAction(currentPlayer.getPosition());
+
+        a1 = currentPlayer.getName() +" - " + currentPlayer.boardAction(currentPlayer.getPosition());
         action2.setText(a2);
         action3.setText(a3);
+
+        movePlayer(currentPlayer.getToken(), currentPlayer.getPosition());
 
         if (currentPlayer.getPosition() > 120) {
             int pos = currentPlayer.getPosition();
             currentPlayer.setPosition(120 - (pos-120));
-            a3=a2;
-            a2=a1;
             a1 = currentPlayer.getName() + " crossed the end and returned back, current position: "
                     + currentPlayer.getPosition();
+            action1.setText(a1);
+
+            a3=a2; a2=a1;
+            a1 = currentPlayer.getName() +" - " + currentPlayer.boardAction(currentPlayer.getPosition());
+            action2.setText(a2);
+            action3.setText(a3);
+            action1.setText(a1);
 
 //            currentPlayer.setFieldPrint(currentPlayer.getPosition(), ' '); //for the board printing
-//            action = currentPlayer.boardAction(currentPlayer.getPosition());
 //            currentPlayer.setFieldPrint(currentPlayer.getPosition(), currentPlayer.getToken()); //for the board printing
 //
 //            CircusGameBoard.printBoard();
@@ -209,21 +219,21 @@ public class Controller {
 
         } else if (currentPlayer.getPosition() == 120) {
 //            CircusGameBoard.printBoard();
-            a3=a2;
-            a2=a1;
-            a1 = "Game over. The winner is " + currentPlayer.getName();
+            a1 = currentPlayer.getName() + " reached field No.120. Winner is " + currentPlayer.getName() + "!";
+            action1.setText(a1);
 //            endOfGame(); //disable dices etc
 
         } else {
 //            CircusGameBoard.printBoard();
-            action1.setText (currentPlayer.getName() +" - " + a1);
+            action1.setText (a1);
         }
 
         playerIndex = (playerIndex+1)%numberOfPlayer;
+        currentPlayerColor.setFill(circusPlayers.get(playerIndex).getColor());
+        currentPlayerLabel.setText("Choose a dice value for " + circusPlayers.get(playerIndex).getName());
 
-
-*/
     }
+
 
 
     private void prepareGameField() {
@@ -247,10 +257,13 @@ public class Controller {
         action1.setText("");
         action2.setText("");
         action3.setText("");
+        a1="";
+        a2="";
+        a3="";
 
 
         currentPlayerColor.setFill(circusPlayers.get(0).getColor());
-        currentPlayer.setText("Choose a dice value for " + circusPlayers.get(0).getName());
+        currentPlayerLabel.setText("Choose a dice value for " + circusPlayers.get(0).getName());
 
         if (numberOfPlayer == 1) {
             p1color.setFill(circusPlayers.get(0).getColor());
@@ -344,6 +357,12 @@ public class Controller {
 
     }
 
+    private void movePlayer(Circle token, int position) {
+        circusBoardGrid.getChildren().remove(token);
+        int row = CircusPlayer.getRow(position);
+        int column = CircusPlayer.getColumn(position);
+        circusBoardGrid.add(token, column, row);
+    }
 
     @FXML
     public void handleExit() {
