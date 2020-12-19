@@ -94,7 +94,7 @@
                   <Button fx:id="exitGame" mnemonicParsing="false" onAction="#handleExit" prefHeight="40.0" prefWidth="80.0" text="Exit game" />
               </items>
             </ToolBar>
-            <FlowPane fx:id="flowPane" prefHeight="43.0" prefWidth="500.0">
+            <FlowPane fx:id="flowPane" prefHeight="43.0" prefWidth="500.0" visible="false">
                <children>
                   <Label fx:id="currentPlayerLabel" prefHeight="52.0" text="   Choose the dice value for the player x:">
                      <font>
@@ -108,7 +108,7 @@
                   </Circle>
                </children>
             </FlowPane>
-            <GridPane fx:id="dicePane" prefHeight="71.0" prefWidth="516.0">
+            <GridPane fx:id="dicePane" prefHeight="71.0" prefWidth="516.0" visible="false">
               <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -220,8 +220,8 @@
             <GridPane fx:id="gridPane" prefHeight="127.0">
               <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="166.0" minWidth="10.0" prefWidth="49.00001207987467" />
-                <ColumnConstraints maxWidth="191.6666259765625" minWidth="10.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="156.0" minWidth="10.0" prefWidth="103.00002034505209" />
+                <ColumnConstraints maxWidth="191.6666259765625" minWidth="10.0" prefWidth="176.66668701171875" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="156.0" minWidth="10.0" prefWidth="88.66664632161459" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints maxHeight="30.0" minHeight="50.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -257,25 +257,37 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="p1pos" prefHeight="28.0" prefWidth="95.0" text="p1 pos" GridPane.columnIndex="2">
+                  <Label fx:id="p1pos" prefHeight="28.0" text="p1 pos" GridPane.columnIndex="2">
                      <font>
                         <Font size="14.0" />
                      </font>
+                     <GridPane.margin>
+                        <Insets left="10.0" />
+                     </GridPane.margin>
                   </Label>
-                  <Label fx:id="p2pos" prefHeight="28.0" prefWidth="95.0" text="p2 pos" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                  <Label fx:id="p2pos" prefHeight="28.0" text="p2 pos" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <font>
                         <Font size="14.0" />
                      </font>
+                     <GridPane.margin>
+                        <Insets left="10.0" />
+                     </GridPane.margin>
                   </Label>
-                  <Label fx:id="p3pos" prefHeight="28.0" prefWidth="95.0" text="p3 pos" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                  <Label fx:id="p3pos" prefHeight="28.0" text="p3 pos" GridPane.columnIndex="2" GridPane.rowIndex="2">
                      <font>
                         <Font size="14.0" />
                      </font>
+                     <GridPane.margin>
+                        <Insets left="10.0" />
+                     </GridPane.margin>
                   </Label>
-                  <Label fx:id="p4pos" prefHeight="28.0" prefWidth="95.0" text="p4 pos" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                  <Label fx:id="p4pos" prefHeight="28.0" text="p4 pos" GridPane.columnIndex="2" GridPane.rowIndex="3">
                      <font>
                         <Font size="14.0" />
                      </font>
+                     <GridPane.margin>
+                        <Insets left="10.0" />
+                     </GridPane.margin>
                   </Label>
                </children>
                <VBox.margin>

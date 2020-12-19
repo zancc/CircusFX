@@ -208,7 +208,7 @@ public class CircusPlayer {
                 this.setPosition(98);
                 break;
             case 119:
-                action = "119: Cat jumping through a hoop - go forward to the field No.101";
+                action = "119: Cat jumping through a hoop - go back to the field No.101";
                 this.setPosition(101);
                 break;
 

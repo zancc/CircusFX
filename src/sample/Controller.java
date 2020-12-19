@@ -230,20 +230,58 @@ public class Controller {
         } else if (currentPlayer.getPosition() == 120) {
             latestAction = currentPlayer.getName() + " reached field No.120. Winner is " + currentPlayer.getName() + "!";
             currentAction.setText(latestAction);
-//            endOfGame(); //disable dices etc
+            endOfGame(); //disable dices etc
 
         } else {
             currentAction.setText (latestAction);
         }
+
+        setPlayerIndexLabel(playerIndex);
 
         playerIndex = (playerIndex+1)%numberOfPlayer;
         currentPlayerColor.setFill(circusPlayers.get(playerIndex).getColor());
         currentPlayerLabel.setText("Choose a dice value for " + circusPlayers.get(playerIndex).getName());
 
     }
-    
+
+    private void endOfGame() {
+        dice1.setDisable(true);
+        dice2.setDisable(true);
+        dice3.setDisable(true);
+        dice4.setDisable(true);
+        dice5.setDisable(true);
+        dice6.setDisable(true);
+    }
+
+    private void setPlayerIndexLabel(int playerIndex) {
+        switch (playerIndex) {
+            case 0:
+                p1pos.setText(String.valueOf(circusPlayers.get(playerIndex).getPosition()));
+                break;
+            case 1:
+                p2pos.setText(String.valueOf(circusPlayers.get(playerIndex).getPosition()));
+                break;
+            case 2:
+                p3pos.setText(String.valueOf(circusPlayers.get(playerIndex).getPosition()));
+                break;
+            case 3:
+                p4pos.setText(String.valueOf(circusPlayers.get(playerIndex).getPosition()));
+                break;
+        }
+    }
+
     private void prepareGameField() {
         String pos;
+        movePlayer(c1, 1);
+        movePlayer(c2, 1);
+        movePlayer(c3,1);
+        movePlayer(c4,1);
+        dice1.setDisable(false);
+        dice2.setDisable(false);
+        dice3.setDisable(false);
+        dice4.setDisable(false);
+        dice5.setDisable(false);
+        dice6.setDisable(false);
         gridPane.setVisible(true);
         vBox.setVisible(true);
         dicePane.setVisible(true);
@@ -261,6 +299,7 @@ public class Controller {
         p4text.setVisible(true);
         p4pos.setVisible(true);
         c1.setVisible(true);
+
         c2.setVisible(true);
         c3.setVisible(true);
         c4.setVisible(true);
