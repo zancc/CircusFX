@@ -1,14 +1,11 @@
 package sample;
 
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 
-import java.util.ArrayList;
-
 public class CircusPlayer {
-    private String name;
-    private Paint color;
+    private final String name;
+    private final Paint color;
     private int position;
     private Circle token;
 

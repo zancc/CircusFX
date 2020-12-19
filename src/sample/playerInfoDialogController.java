@@ -15,20 +15,11 @@ public class playerInfoDialogController {
     @FXML
     private ColorPicker colorPicker;
 
-
-
-    @FXML
-    private Circle p1color;
-
     public void playerInfo(int i) {
         String name = playerNameField.getText().trim();
         System.out.println(name);
         Paint playerColor = colorPicker.getValue();
         System.out.println(playerColor);
-        Circle currentCircle;
-
-
-
 
         Controller.circusPlayers.add(new CircusPlayer(name, playerColor));
     }

@@ -9,7 +9,9 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 
 import java.io.IOException;
@@ -78,21 +80,32 @@ public class Controller {
     @FXML
     private Label action3;
     @FXML
+    private Label currentAction;
+    @FXML
     private GridPane circusBoardGrid;
+    @FXML
+    private GridPane gridPane;
+    @FXML
+    private GridPane dicePane;
+    @FXML
+    private VBox vBox;
+    @FXML
+    private FlowPane flowPane;
 
     private String a1;
     private String a2;
     private String a3;
+    private String latestAction;
+    private String tempAction;
 
-    private int diceValue;
     private int playerIndex;
 
     public void initialize() {
-
+        System.out.println("Initialize started");
+        clearBeforeGame();
 
 
     }
-
 
 
     @FXML
@@ -131,19 +144,15 @@ public class Controller {
             for (int i = 0; i < numberOfPlayer; i++) {
                 showPlayerInfoInputDialog(i);
             }
+            prepareGameField();
+            latestAction = "New Game. Number of players - " + numberOfPlayer;
+            currentAction.setText(latestAction);
+            playerIndex = 0;
+
+        } else {
+            initialize();
         }
-
-//        for (int i = 0; i < numberOfPlayer; i++) {
-//            System.out.println(circusPlayers.get(i));
-//        }
-        prepareGameField();
-        a1 = "New Game. Number of players - " + numberOfPlayer;
-        action1.setText(a1);
-        playerIndex = 0;
-
     }
-
-
 
     private void showPlayerInfoInputDialog(int i) {
         Dialog<ButtonType> dialog = new Dialog<>();
@@ -167,14 +176,17 @@ public class Controller {
         if (result.isPresent() && result.get() == ButtonType.OK) {
             playerInfoDialogController controller = fxmlLoader.getController();
             controller.playerInfo(i);
+        } else {
+
         }
+
     }
 
     public void diceClicked(ActionEvent e) {
         CircusPlayer currentPlayer = circusPlayers.get(playerIndex);
         a3 = a2;
         a2 = a1;
-        a1 = "";
+        a1 = latestAction;
         int diceValue = -1;
         if(e.getSource().equals(dice1)) {
             diceValue = 1;
@@ -192,7 +204,9 @@ public class Controller {
         System.out.println(diceValue);
         currentPlayer.addToPosition(diceValue);
 
-        a1 = currentPlayer.getName() +" - " + currentPlayer.boardAction(currentPlayer.getPosition());
+        latestAction = currentPlayer.getName()  +" - dice value was " + diceValue + ", moved to the field " +
+                currentPlayer.boardAction(currentPlayer.getPosition());
+        action1.setText(a1);
         action2.setText(a2);
         action3.setText(a3);
 
@@ -201,31 +215,25 @@ public class Controller {
         if (currentPlayer.getPosition() > 120) {
             int pos = currentPlayer.getPosition();
             currentPlayer.setPosition(120 - (pos-120));
-            a1 = currentPlayer.getName() + " crossed the end and returned back, current position: "
-                    + currentPlayer.getPosition();
-            action1.setText(a1);
+            latestAction = currentPlayer.getName()  +" - dice value was " + diceValue + ", crossed the end and returned back, " +
+                    "current position: " + currentPlayer.getPosition();
 
-            a3=a2; a2=a1;
-            a1 = currentPlayer.getName() +" - " + currentPlayer.boardAction(currentPlayer.getPosition());
+            a3=a2; a2=a1; a1=latestAction;
+            tempAction = currentPlayer.boardAction(currentPlayer.getPosition());
+            currentAction.setText(latestAction + "\n " + tempAction);
+            latestAction = currentPlayer.getName()  + " - " + tempAction;
             action2.setText(a2);
             action3.setText(a3);
             action1.setText(a1);
-
-//            currentPlayer.setFieldPrint(currentPlayer.getPosition(), ' '); //for the board printing
-//            currentPlayer.setFieldPrint(currentPlayer.getPosition(), currentPlayer.getToken()); //for the board printing
-//
-//            CircusGameBoard.printBoard();
-//            System.out.println("\t"+action);
+            movePlayer(currentPlayer.getToken(), currentPlayer.getPosition());
 
         } else if (currentPlayer.getPosition() == 120) {
-//            CircusGameBoard.printBoard();
-            a1 = currentPlayer.getName() + " reached field No.120. Winner is " + currentPlayer.getName() + "!";
-            action1.setText(a1);
+            latestAction = currentPlayer.getName() + " reached field No.120. Winner is " + currentPlayer.getName() + "!";
+            currentAction.setText(latestAction);
 //            endOfGame(); //disable dices etc
 
         } else {
-//            CircusGameBoard.printBoard();
-            action1.setText (a1);
+            currentAction.setText (latestAction);
         }
 
         playerIndex = (playerIndex+1)%numberOfPlayer;
@@ -233,11 +241,13 @@ public class Controller {
         currentPlayerLabel.setText("Choose a dice value for " + circusPlayers.get(playerIndex).getName());
 
     }
-
-
-
+    
     private void prepareGameField() {
         String pos;
+        gridPane.setVisible(true);
+        vBox.setVisible(true);
+        dicePane.setVisible(true);
+        flowPane.setVisible(true);
         p1color.setVisible(true);
         p1text.setVisible(true);
         p1pos.setVisible(true);
@@ -363,6 +373,19 @@ public class Controller {
         int column = CircusPlayer.getColumn(position);
         circusBoardGrid.add(token, column, row);
     }
+
+    private void clearBeforeGame() {
+        c1.setVisible(false);
+        c2.setVisible(false);
+        c3.setVisible(false);
+        c4.setVisible(false);
+        vBox.setVisible(false);
+        gridPane.setVisible(false);
+        dicePane.setVisible(false);
+        flowPane.setVisible(false);
+
+    }
+
 
     @FXML
     public void handleExit() {
