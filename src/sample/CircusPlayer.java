@@ -9,8 +9,6 @@ public class CircusPlayer {
     private int position;
     private Circle token;
 
-
-
     public void setToken(Circle token) {
         this.token = token;
     }
