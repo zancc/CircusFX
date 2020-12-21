@@ -20,8 +20,16 @@ public class newGameController{
     private RadioButton three;
     @FXML
     private RadioButton four;
+    @FXML
+    private CheckBox isAuto;
 
     public int newGame() {
+        if (isAuto.isSelected()) {
+            Controller.automaticDice = true;
+        } else {
+            Controller.automaticDice = false;
+        }
+
         if (one.isSelected()) {
             return 1;
         }

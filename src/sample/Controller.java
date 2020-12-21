@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
@@ -92,6 +93,25 @@ public class Controller {
     @FXML
     private FlowPane flowPane;
 
+    @FXML
+    private Button rollButton;
+    @FXML
+    private ImageView im1;
+    @FXML
+    private ImageView im2;
+    @FXML
+    private ImageView im3;
+    @FXML
+    private ImageView im4;
+    @FXML
+    private ImageView im5;
+    @FXML
+    private ImageView im6;
+    @FXML
+    private Label playerRolled;
+
+    public static boolean automaticDice;
+
     private String a1;
     private String a2;
     private String a3;
@@ -144,6 +164,7 @@ public class Controller {
             for (int i = 0; i < numberOfPlayer; i++) {
                 showPlayerInfoInputDialog(i);
             }
+
             prepareGameField();
             latestAction = "New Game. Number of players - " + numberOfPlayer;
             currentAction.setText(latestAction);
@@ -177,29 +198,22 @@ public class Controller {
             playerInfoDialogController controller = fxmlLoader.getController();
             controller.playerInfo(i);
         } else {
-
+            initialize();
         }
 
     }
 
-    public void diceClicked(ActionEvent e) {
+    public void diceRolled(ActionEvent e) {
         CircusPlayer currentPlayer = circusPlayers.get(playerIndex);
         a3 = a2;
         a2 = a1;
         a1 = latestAction;
         int diceValue = -1;
-        if(e.getSource().equals(dice1)) {
-            diceValue = 1;
-        } else if (e.getSource().equals(dice2)) {
-            diceValue = 2;
-        } else if (e.getSource().equals(dice3)) {
-            diceValue = 3;
-        } else if (e.getSource().equals(dice4)) {
-            diceValue = 4;
-        } else if (e.getSource().equals(dice5)) {
-            diceValue = 5;
-        } else if (e.getSource().equals(dice6)) {
-            diceValue = 6;
+
+        if (automaticDice) {
+            diceValue = automaticDiceRoll();
+        } else {
+            diceValue = manualDiceRoll(e);
         }
         System.out.println(diceValue);
         currentPlayer.addToPosition(diceValue);
@@ -240,8 +254,59 @@ public class Controller {
 
         playerIndex = (playerIndex+1)%numberOfPlayer;
         currentPlayerColor.setFill(circusPlayers.get(playerIndex).getColor());
-        currentPlayerLabel.setText("Choose a dice value for " + circusPlayers.get(playerIndex).getName());
+        currentPlayerLabel.setText("Roll the dice for " + circusPlayers.get(playerIndex).getName()+ "  ");
 
+    }
+
+    private int automaticDiceRoll() {
+        im1.setVisible(false);
+        im2.setVisible(false);
+        im3.setVisible(false);
+        im4.setVisible(false);
+        im5.setVisible(false);
+        im6.setVisible(false);
+        int randomDiceValue = (int)(Math.random()*6+1);
+        switch (randomDiceValue) {
+            case 1:
+                im1.setVisible(true);
+                break;
+            case 2:
+                im2.setVisible(true);
+                break;
+            case 3:
+                im3.setVisible(true);
+                break;
+            case 4:
+                im4.setVisible(true);
+                break;
+            case 5:
+                im5.setVisible(true);
+                break;
+            case 6:
+                im6.setVisible(true);
+                break;
+        }
+        playerRolled.setVisible(true);
+        playerRolled.setText(circusPlayers.get(playerIndex).getName() + " rolled:");
+
+        return randomDiceValue;
+    }
+
+    private int manualDiceRoll(ActionEvent e) {
+        if(e.getSource().equals(dice1)) {
+            return 1;
+        } else if (e.getSource().equals(dice2)) {
+            return 2;
+        } else if (e.getSource().equals(dice3)) {
+            return 3;
+        } else if (e.getSource().equals(dice4)) {
+            return 4;
+        } else if (e.getSource().equals(dice5)) {
+            return 5;
+        } else if (e.getSource().equals(dice6)) {
+            return 6;
+        }
+        return -1;
     }
 
     private void endOfGame() {
@@ -251,6 +316,7 @@ public class Controller {
         dice4.setDisable(true);
         dice5.setDisable(true);
         dice6.setDisable(true);
+        rollButton.setDisable(true);
     }
 
     private void setPlayerIndexLabel(int playerIndex) {
@@ -271,17 +337,26 @@ public class Controller {
     }
 
     private void prepareGameField() {
-        String pos;
-        movePlayer(c1, 1);
-        movePlayer(c2, 1);
-        movePlayer(c3,1);
-        movePlayer(c4,1);
+        if (automaticDice) {
+            prepareAutomaticRoll();
+        } else {
+            prepareManualRoll();
+        }
+
+        rollButton.setDisable(false);
         dice1.setDisable(false);
         dice2.setDisable(false);
         dice3.setDisable(false);
         dice4.setDisable(false);
         dice5.setDisable(false);
         dice6.setDisable(false);
+
+
+        String pos;
+        movePlayer(c1, 1);
+        movePlayer(c2, 1);
+        movePlayer(c3,1);
+        movePlayer(c4,1);
         gridPane.setVisible(true);
         vBox.setVisible(true);
         dicePane.setVisible(true);
@@ -312,7 +387,7 @@ public class Controller {
 
 
         currentPlayerColor.setFill(circusPlayers.get(0).getColor());
-        currentPlayerLabel.setText("Choose a dice value for " + circusPlayers.get(0).getName());
+        currentPlayerLabel.setText("Roll the dice for " + circusPlayers.get(0).getName() + "   ");
 
         if (numberOfPlayer == 1) {
             p1color.setFill(circusPlayers.get(0).getColor());
@@ -403,6 +478,44 @@ public class Controller {
             c3.setFill(circusPlayers.get(2).getColor());
             c4.setFill(circusPlayers.get(3).getColor());
         }
+
+    }
+
+    private void prepareAutomaticRoll() {
+        dice1.setVisible(false);
+        dice2.setVisible(false);
+        dice3.setVisible(false);
+        dice4.setVisible(false);
+        dice5.setVisible(false);
+        dice6.setVisible(false);
+
+        rollButton.setVisible(true);
+        im1.setVisible(false);
+        im2.setVisible(false);
+        im3.setVisible(false);
+        im4.setVisible(false);
+        im5.setVisible(false);
+        im6.setVisible(false);
+        playerRolled.setVisible(false);
+
+    }
+
+    private void prepareManualRoll() {
+        dice1.setVisible(true);
+        dice2.setVisible(true);
+        dice3.setVisible(true);
+        dice4.setVisible(true);
+        dice5.setVisible(true);
+        dice6.setVisible(true);
+
+        rollButton.setVisible(false);
+        im1.setVisible(false);
+        im2.setVisible(false);
+        im3.setVisible(false);
+        im4.setVisible(false);
+        im5.setVisible(false);
+        im6.setVisible(false);
+        playerRolled.setVisible(false);
 
     }
 
