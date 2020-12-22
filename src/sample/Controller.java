@@ -117,6 +117,7 @@ public class Controller {
     private String a3;
     private String latestAction;
     private String tempAction;
+    private static boolean correctInfoInput;
 
     private int playerIndex;
 
@@ -158,17 +159,22 @@ public class Controller {
         if (result.isPresent() && result.get() == ButtonType.OK) {
             newGameController controller = fxmlLoader.getController();
             numberOfPlayer = controller.newGame();
-            System.out.println(numberOfPlayer);
+//            System.out.println(numberOfPlayer);
 
+            correctInfoInput = true;
             //player data input dialog
             for (int i = 0; i < numberOfPlayer; i++) {
                 showPlayerInfoInputDialog(i);
             }
 
-            prepareGameField();
-            latestAction = "New Game. Number of players - " + numberOfPlayer;
-            currentAction.setText(latestAction);
-            playerIndex = 0;
+            if (correctInfoInput) {
+                prepareGameField();
+                latestAction = "New Game. Number of players - " + numberOfPlayer;
+                currentAction.setText(latestAction);
+                playerIndex = 0;
+            } else {
+                initialize();
+            }
 
         } else {
             initialize();
@@ -178,7 +184,7 @@ public class Controller {
     private void showPlayerInfoInputDialog(int i) {
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.initOwner(mainBorderPane.getScene().getWindow());
-        dialog.setTitle("Player " + i + " info");
+        dialog.setTitle("Player " + (i + 1) + " info");
         dialog.setHeaderText("Choose the name and color for the player " + (i + 1));
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("playerInfoDialog.fxml"));
@@ -198,7 +204,7 @@ public class Controller {
             playerInfoDialogController controller = fxmlLoader.getController();
             controller.playerInfo(i);
         } else {
-            initialize();
+            correctInfoInput = false;
         }
 
     }
@@ -215,7 +221,7 @@ public class Controller {
         } else {
             diceValue = manualDiceRoll(e);
         }
-        System.out.println(diceValue);
+//        System.out.println(diceValue);
         currentPlayer.addToPosition(diceValue);
 
         latestAction = currentPlayer.getName()  +" - dice value was " + diceValue + ", moved to the field " +
@@ -254,7 +260,7 @@ public class Controller {
 
         playerIndex = (playerIndex+1)%numberOfPlayer;
         currentPlayerColor.setFill(circusPlayers.get(playerIndex).getColor());
-        currentPlayerLabel.setText("Roll the dice for " + circusPlayers.get(playerIndex).getName()+ "  ");
+        currentPlayerLabel.setText("   Roll the dice for " + circusPlayers.get(playerIndex).getName()+ "  ");
 
     }
 
@@ -387,7 +393,7 @@ public class Controller {
 
 
         currentPlayerColor.setFill(circusPlayers.get(0).getColor());
-        currentPlayerLabel.setText("Roll the dice for " + circusPlayers.get(0).getName() + "   ");
+        currentPlayerLabel.setText("   Roll the dice for " + circusPlayers.get(0).getName() + "   ");
 
         if (numberOfPlayer == 1) {
             p1color.setFill(circusPlayers.get(0).getColor());

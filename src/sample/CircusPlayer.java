@@ -213,7 +213,7 @@ public class CircusPlayer {
                 break;
 
             default:
-                action = this.getPosition()+": This is regular field without special action";
+                action = this.getPosition()+".";
                 break;
         }
         return action;
